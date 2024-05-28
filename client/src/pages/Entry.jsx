@@ -23,17 +23,20 @@ function Entry() {
 
     if (isSignin) {
       // sign in logic
-      const res = await fetch(`${import.meta.env.VITE_BE_API}/${userType}/signin`, {
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BE_API}/${userType}/signin`,
+        {
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        }
+      );
 
       if (res.status == 200) {
         const json = await res.json();
@@ -51,20 +54,9 @@ function Entry() {
 
     if (!isSignin) {
       // sign up logic
-      const res = await fetch(`${import.meta.env.VITE_BE_API}/${userType}/signup`, {
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-
-      if (res.status == 200) {
-        const res1 = await fetch(`${import.meta.env.VITE_BE_API}/${userType}/signin`, {
+      const res = await fetch(
+        `${import.meta.env.VITE_BE_API}/${userType}/signup`,
+        {
           body: JSON.stringify({
             username: username,
             password: password,
@@ -74,7 +66,24 @@ function Entry() {
             "Content-Type": "application/json",
           },
           method: "POST",
-        });
+        }
+      );
+
+      if (res.status == 200) {
+        const res1 = await fetch(
+          `${import.meta.env.VITE_BE_API}/${userType}/signin`,
+          {
+            body: JSON.stringify({
+              username: username,
+              password: password,
+            }),
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+          }
+        );
         if (res1.status == 200) {
           const json = await res1.json();
           await login({
@@ -96,7 +105,7 @@ function Entry() {
   return (
     <>
       <div className="h-lvh flex flex-col justify-center items-center">
-        <Typography variant="h1" className="mr-4 cursor-pointer py-1.5 my-10">
+        <Typography variant="h1" className="mr-4 cursor-pointer py-1.5 my-10 text-3xl sm:text-5xl">
           CourseDekho 👁️
         </Typography>
         <Card color="transparent" shadow={false}>

@@ -37,7 +37,7 @@ function NavList() {
         )}
       </Typography>
       <li>
-        <Chip value={username} />
+        <Chip className="max-w-20" size="md" value={username} />
       </li>
       <li>
         <Button

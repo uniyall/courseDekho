@@ -48,7 +48,7 @@ function Courses() {
     <>
       <NavbarSimple />
       {userType === "user" ? (
-        <div className="flex justify-end mx-[190px] mt-10">
+        <div className="flex sm:justify-end justify-center sm:mx-[190px] mt-10">
           <Switch
             checked={onlyPurchased}
             onChange={() => {
@@ -63,14 +63,14 @@ function Courses() {
               }
               setOnlyPurchased(!onlyPurchased);
             }}
-            label="Purchased Courses"
+            label="Purchased"
           />
         </div>
       ) : (
         ""
       )}
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         {courses.map((course, index) => (
           <CourseCard
             key={index}
@@ -78,12 +78,15 @@ function Courses() {
             userType={userType}
             purchasedCoursesList={purchasedCoursesList}
             handleBuy={async () => {
-              await fetch(`${import.meta.env.VITE_BE_API}/user/course/${course._id}`, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                method: "POST",
-              });
+              await fetch(
+                `${import.meta.env.VITE_BE_API}/user/course/${course._id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                  method: "POST",
+                }
+              );
               const temp = purchasedCoursesList;
               console.log(temp);
               temp.push(course._id);
